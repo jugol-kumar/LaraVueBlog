@@ -5,15 +5,17 @@ import VueRouter from 'vue-router';
 import ViewUI from 'view-design';
 import Common from './common';
 import moment from "moment";
+import store from './store';
 import 'view-design/dist/styles/iview.css';
+import Vuex from 'vuex';
 import Swal from "sweetalert2";
 Vue.use(ViewUI)
 Vue.use(VueRouter)
 Vue.mixin(Common)
 Vue.use(moment)
+Vue.use(Vuex)
 // Vue.use(Swal)
 window.Swal = Swal
-
 
 
 // Routes Import
@@ -36,5 +38,6 @@ Vue.component('app', require('./components/App.vue').default);
 
 const app = new Vue({
     el: '#app',
-    router:Router
+    router:Router,
+    store
 });
