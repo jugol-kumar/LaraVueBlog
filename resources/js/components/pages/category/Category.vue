@@ -20,7 +20,7 @@
                             <tr v-for="(cat, i) in categories" :key="i" v-if="categories.length">
                                 <td>{{ i+1 }}</td>
                                 <td class="">{{cat.category_name}}</td>
-                                <td><img :src="`./category/${cat.iconImage}`" style="width: 80px; height: 55px;" alt=""></td>
+                                <td><img :src="`./category/${cat.iconImage}`" style="width: 125px; height: 50px;" alt=""></td>
                                 <td>{{ cat.created_at|dateFormat }}</td>
                                 <td>
                                     <Button v-model="editData.id" type="success" @click="showEditModal(cat)"><Icon type="md-pricetags"/></Button>
@@ -46,7 +46,7 @@
                         :headers="{'x-csrf-token': token, 'X-Requested-With' : 'XMLHttpRequest'}"
                         :on-success="handleSuccess"
                         :on-error="handleError"
-                        :format="['jpg','jpeg','png']"
+                        :format="['jpg','jpeg','png','svg']"
                         :max-size="2048"
                         :on-format-error="handleFormatError"
                         :on-exceeded-size="handleMaxSize"
@@ -83,7 +83,7 @@
                         :headers="{'x-csrf-token': token, 'X-Requested-With' : 'XMLHttpRequest'}"
                         :on-success="handleSuccess"
                         :on-error="handleError"
-                        :format="['jpg','jpeg','png']"
+                        :format="['jpg','jpeg','png','svg']"
                         :max-size="2048"
                         :on-format-error="handleFormatError"
                         :on-exceeded-size="handleMaxSize"

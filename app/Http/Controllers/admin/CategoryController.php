@@ -15,7 +15,7 @@ class CategoryController extends Controller
 
     public function uploadImage(Request $request){
         $this->validate($request,[
-            'file' => 'required|mimes:jpg,png',
+            'file' => 'required|mimes:jpg,png,svg',
         ]);
 
         $imageName = time().".".$request->file->extension();
