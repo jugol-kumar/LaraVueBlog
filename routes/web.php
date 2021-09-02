@@ -4,7 +4,14 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\admin\UserConttoller;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::any('{slug}', [HomeController::class, 'index']);
+
 
 
 //tag controller and all tag routes
@@ -39,13 +46,10 @@ Route::get('/', function (){
    return view('welcome');
 });
 
-Route::any('{slug}', function(){
-   return view('welcome');
-});
 
 
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

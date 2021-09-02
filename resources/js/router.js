@@ -37,7 +37,10 @@ export const routes = [
     {
         path:'/login',
         component: Login,
+    },
+    {
+        path: '/user-panel',
+        component: UserPanel,
     }
-
 
 ]
