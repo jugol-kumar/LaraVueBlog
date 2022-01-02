@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--========== ADMIN SIDE MENU one ========-->
-        <div class="_1side_menu" >
+        <div class="_1side_menu" v-if="this.$store.state.showView">
             <div class="_1side_menu_logo">
                 <h3 style="text-align:center;">Logo Image</h3>
                 <!--<img src="/img/logo.jpg" style="width: 108px;margin-left: 68px;"/>-->
@@ -17,22 +17,8 @@
                 <!--~~~ MENU LIST ~~~~~~-->
                 <div class="_1side_menu_list">
                     <ul class="_1side_menu_list_ul">
-                        <!--                        <li v-for="(menuItem, i) in permission" :key="i" v-if="permission.length && menuItem.read">-->
-                        <!--                            <router-link><Icon type="ios-speedometer" /> some name</router-link>-->
-                        <!--                        </li>-->
-
-
-                        <li><router-link to="/"><Icon type="ios-speedometer" /> Dashboard</router-link></li>
-
-                        <li><router-link to="tags"><Icon type="md-pricetags"/> Tags</router-link></li>
-                        <li><router-link to="categories"><Icon type="ios-podium" /> Category</router-link></li>
-                        <li><router-link to="post"><Icon type="md-list-box" /> Post </router-link></li>
-<!--                        <li><router-link to="adminusers"><Icon type="ios-speedometer" /> Admin users</router-link></li>-->
-<!--                        <li><router-link to="role"><Icon type="ios-speedometer" /> Role Management</router-link></li>-->
-<!--                        <li><router-link to="assignRole"><Icon type="ios-speedometer" /> Assign role</router-link></li>-->
-
-
-                        <li><a href="/logout"><Icon type="md-power" />Logout</a></li>
+                        <li><router-link to="/"><Icon type="md-person" />Airlines</router-link></li>
+                        <li><a @click="logout"><Icon type="md-power" />Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,14 +26,13 @@
         <!--========== ADMIN SIDE MENU ========-->
 
         <!--========= HEADER ==========-->
-        <div class="header">
+        <div class="header" v-if="this.$store.state.showView">
             <div class="_2menu _box_shadow">
                 <div class="_2menu_logo">
                     <ul class="open_button">
                         <li>
                             <Icon type="ios-list" />
                         </li>
-                        <!--<li><Icon type="ios-albums" /></li>-->
                     </ul>
                 </div>
             </div>
@@ -55,7 +40,6 @@
 
         <!--========= HEADER ==========-->
         <router-view/>
-
     </div>
 </template>
 
@@ -70,7 +54,33 @@ export default {
       SideBar,
       Footer,
     },
-    name: "App"
+    show: false,
+    name: "App",
+    created() {
+        if (this.$store.state.token) {
+            this.$store.commit("showSideTop", true);
+            this.$router.push("/");
+        }else{
+            this.show=false;
+            this.$store.commit("showSideTop", false);
+            this.$router.push("/login")
+        }
+    },
+    methods: {
+        logout(){
+            axios.post("api/logout", {token: this.$store.state.token})
+            .then(res =>{
+                this.$store.commit("clearToken");
+                this.$store.commit("showSideTop", false);
+                this.$router.push("/login")
+            })
+            .catch(err=>{
+                this.$store.commit("clearToken");
+                this.$store.commit("showSideTop", false);
+                this.$router.push("/login")
+            })
+        }
+    }
 }
 </script>
 
